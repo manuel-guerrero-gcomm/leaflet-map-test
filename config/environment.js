@@ -1,4 +1,7 @@
 'use strict';
+require('dotenv-safe').config({
+  example: '.env.sample'
+});
 
 module.exports = function (environment) {
   let ENV = {
@@ -20,6 +23,7 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      ALTAN_GEOMAP_API_KEY: process.env.ALTAN_GEOMAP_API_KEY,
     },
   };
 

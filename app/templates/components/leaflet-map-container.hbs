@@ -1,0 +1,14 @@
+{{yield}}
+<h1>Map container</h1>
+{{this.tileLayout}}
+<LeafletMap class="leaflet-map" center=true @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+  {{!-- Specify child layer components here --}}
+  <layers.tile @url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" @maxZoom={{18}} />
+  <layers.wms-tile
+    @url={{this.tileLayout}}
+    @layers={{this.layerOptions.layers}}
+    @format={{this.layerOptions.format}}
+    @tiled={{this.layerOptions.tiled}}
+    @transparent={{this.layerOptions.transparent}}
+  />
+</LeafletMap>
