@@ -23,12 +23,21 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-      ALTAN_GEOMAP_API_KEY: process.env.ALTAN_GEOMAP_API_KEY,
+      ALTAN_GEOMAP_API_KEY: process.env.ALTAN_GEOMAP_API_KEY
+    },
+    'place-autocomplete': {
+      exclude: false,
+      key: process.env.GOOGLE_PLACES_API_KEY,
+      client: '',
+      version: 3.27, // Optional - if client is set version must be above 3.24
+      language: 'en', // Optional - be default will be based on your browser language
+      region: 'MX', // Optional
+      contentForType: 'head' // Optional - Specifies which conten
     },
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
+    ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;

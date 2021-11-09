@@ -1,7 +1,17 @@
 {{yield}}
 <h1>Map container</h1>
-{{this.tileLayout}}
-<LeafletMap class="leaflet-map" center=true @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+<div class="test-place-autocomplete-container" data-google-auto={{googleAuto}} style="z-index: 999999999999;">
+  <PlaceAutocompleteField
+    @value={{this.model.address}}
+    @inputClass= "place-autocomplete--input input-field-example"
+    @onBlurCallback={{action "done"}}
+    @placeChangedCallback={{this.placeChanged}}
+    @placeholder="Ingresa una direccion..."
+    @preventSubmit={{false}}
+    @restrictions={{restrictions}}
+  />
+</div>
+<LeafletMap class="leaflet-map" @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
   {{!-- Specify child layer components here --}}
   <layers.tile @url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" @maxZoom={{18}} />
   <layers.wms-tile
@@ -11,4 +21,17 @@
     @tiled={{this.layerOptions.tiled}}
     @transparent={{this.layerOptions.transparent}}
   />
+  {{#if this.model.hasLocation}}
+  <layers.marker @location={{this.model.locationCoordinates}} as |marker|>
+    <marker.popup>
+      <h3>{{this.model.address}}</h3>
+    </marker.popup>
+  </layers.marker>
+  {{else}}
+  <layers.marker @location={{this.initialLatLng}} as |marker|>
+    <marker.popup>
+      <h3>{{this.model.address}}</h3>
+    </marker.popup>
+  </layers.marker>
+  {{/if}}
 </LeafletMap>
